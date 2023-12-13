@@ -1,0 +1,55 @@
+{
+  "plugins": [
+    "stylelint-prettier"
+  ],
+  "extends": [
+    "stylelint-config-standard"
+  ],
+  "customSyntax": "postcss-scss",
+  "rules": {
+    "font-family-no-missing-generic-family-keyword": null,
+    "no-empty-source": null,
+    "prettier/prettier": true,
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "each",
+          "else",
+          "extend",
+          "for",
+          "forward",
+          "function",
+          "if",
+          "include",
+          "mixin",
+          "return",
+          "use",
+          "while"
+        ]
+      }
+    ],
+    "property-no-unknown": [
+      true,
+      {
+        "ignoreProperties": [
+          "font-smoothing"
+        ]
+      }
+    ],
+    "selector-type-no-unknown": [
+      true,
+      {
+        "ignoreTypes": []
+      }
+    ],
+    "selector-pseudo-element-no-unknown": [
+      true,
+      {
+        "ignorePseudoElements": [
+          "ng-deep"
+        ]
+      }
+    ]
+  }
+}
