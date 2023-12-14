@@ -1,0 +1,16 @@
+@use '@angular/material' as mat;
+@use 'local' as app;
+
+$theme: app.$app-theme;
+
+.app {
+  background-color: mat.get-theme-color($theme, background, background);
+
+  &__footer {
+    background-color: mat.get-theme-color($theme, foreground, base);
+
+    &-text {
+      color: mat.get-theme-color($theme, background, card);
+    }
+  }
+}

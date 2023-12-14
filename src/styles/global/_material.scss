@@ -1,0 +1,6 @@
+@use '@angular/material' as mat;
+@use 'local' as app;
+
+@include mat.core();
+@include mat.core-theme(app.$app-theme);
+@include mat.toolbar-theme(app.$app-theme);

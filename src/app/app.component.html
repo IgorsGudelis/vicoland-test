@@ -1,3 +1,15 @@
-<p>app component works!</p>
+<div class="app">
+  <mat-toolbar [color]="'primary'">
+    <div class="app-container">Header</div>
+  </mat-toolbar>
 
-<router-outlet></router-outlet>
+  <main class="app__main app-container">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer class="app__footer">
+    <p class="app__footer-text app-container">
+      © 2023 Vicoland test. All right reserved.
+    </p>
+  </footer>
+</div>
