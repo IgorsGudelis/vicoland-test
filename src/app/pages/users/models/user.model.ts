@@ -1,4 +1,5 @@
 export interface User {
+  avatarUrl: string;
   city: string;
   country: string;
   email: string;
