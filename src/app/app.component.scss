@@ -12,6 +12,25 @@
   display: flex;
   flex-direction: column;
 
+  &__header {
+    &-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  &__search {
+    ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 8px;
+  }
+
   &__main {
     flex-grow: 1;
     padding: 24px;

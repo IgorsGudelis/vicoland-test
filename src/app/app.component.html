@@ -1,6 +1,16 @@
 <div class="app">
-  <mat-toolbar [color]="'primary'">
-    <div class="app-container">Header</div>
+  <mat-toolbar class="app__header mat-elevation-z4">
+    <div class="app__header-content app-container">
+      <mat-form-field class="app__search" [appearance]="'outline'">
+        <mat-label>Search</mat-label>
+        <input matInput />
+      </mat-form-field>
+
+      <div class="app__actions">
+        <button mat-stroked-button color="primary">Create</button>
+        <button mat-stroked-button color="primary">Save</button>
+      </div>
+    </div>
   </mat-toolbar>
 
   <main class="app__main app-container">
