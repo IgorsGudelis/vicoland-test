@@ -1,4 +1,7 @@
 import { Routes } from '@angular/router';
+import { provideState } from '@ngrx/store';
+
+import { usersFeatureKey, usersReducer } from './pages/users/store';
 
 export const routes: Routes = [
   {
@@ -20,6 +23,9 @@ export const routes: Routes = [
           import('./pages/users/users.routes').then(
             module => module.USERS_ROUTES,
           ),
+        providers: [
+          provideState({ name: usersFeatureKey, reducer: usersReducer }),
+        ],
       },
       {
         path: '**',
