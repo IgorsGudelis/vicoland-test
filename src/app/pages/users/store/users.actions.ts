@@ -1,6 +1,11 @@
-import { createActionGroup } from '@ngrx/store';
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
+
+import { User } from '../models';
 
 export const UsersActions = createActionGroup({
   source: 'Users',
-  events: {},
+  events: {
+    'Get Users': emptyProps(),
+    'Get Users Success': props<{ payload: User[] }>(),
+  },
 });

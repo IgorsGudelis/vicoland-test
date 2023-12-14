@@ -1,8 +1,9 @@
 import { Route } from '@angular/router';
+import { provideEffects } from '@ngrx/effects';
 import { provideState } from '@ngrx/store';
 
 import { UsersService } from './services';
-import { usersFeatureKey, usersReducer } from './store';
+import { UsersEffects, usersFeatureKey, usersReducer } from './store';
 
 export const USERS_ROUTES: Route[] = [
   {
@@ -10,6 +11,7 @@ export const USERS_ROUTES: Route[] = [
     providers: [
       UsersService,
       provideState({ name: usersFeatureKey, reducer: usersReducer }),
+      provideEffects(UsersEffects),
     ],
     children: [
       {

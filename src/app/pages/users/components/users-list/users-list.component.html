@@ -1,1 +1,9 @@
-<p>users-list works!</p>
+<div class="users">
+  @for (item of users$ | async; track item.id) {
+    <div>
+      <p>{{ item.id }}</p>
+      <p>{{ item.firstName }}</p>
+      <p>{{ item.lastName }}</p>
+    </div>
+  }
+</div>

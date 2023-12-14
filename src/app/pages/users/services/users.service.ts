@@ -6,10 +6,10 @@ import { User } from '../models';
 @Injectable()
 export class UsersService {
   getUsers(): User[] {
-    return Array.from(new Array(15)).map(() => this.getUser());
+    return Array.from(new Array(15)).map((item, i) => this.getUser(i + 1));
   }
 
-  getUser(): User {
+  getUser(id: number): User {
     const { image, internet, location, person } = faker;
     const firstName = person.firstName();
     const lastName = person.lastName();
@@ -20,6 +20,7 @@ export class UsersService {
       country: location.country(),
       email: internet.email({ firstName, lastName }),
       firstName,
+      id,
       lastName,
       street: location.street(),
       zipcode: location.zipCode(),
