@@ -1,5 +1,5 @@
 export interface User {
-  avatarUrl: string;
+  avatarUrl?: string;
   city: string;
   country: string;
   email: string;

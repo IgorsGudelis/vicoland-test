@@ -1,9 +1,10 @@
 <div class="users">
   @for (item of users$ | async; track item.id) {
-    <div>
-      <p>{{ item.id }}</p>
+    <div (click)="onUserClick(item)">
       <p>{{ item.firstName }}</p>
       <p>{{ item.lastName }}</p>
     </div>
+  } @empty {
+    <p>Nothing found...</p>
   }
 </div>

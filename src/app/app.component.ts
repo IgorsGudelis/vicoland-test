@@ -19,7 +19,8 @@ import {
   selectIsSaveDisabled,
   selectIsSearchDisabled,
 } from '@shared/store/common';
-import { debounceTime } from 'rxjs';
+import { selectQueryParams } from '@shared/store/router';
+import { debounceTime, filter, map, skip, take } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -50,6 +51,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.initSearchValue();
     this.subscribeOnSearchValueChanges();
     this.subscribeOnSearchStatusChanges();
   }
@@ -62,6 +64,20 @@ export class AppComponent implements OnInit {
     this.store.dispatch(CommonActions.save());
   }
 
+  private initSearchValue(): void {
+    this.store
+      .select(selectQueryParams)
+      .pipe(
+        skip(1),
+        take(1),
+        map(({ search }) => search?.trim()),
+        filter(value => !!value),
+      )
+      .subscribe(value =>
+        this.searchControl.patchValue(value, { emitEvent: false }),
+      );
+  }
+
   subscribeOnSearchValueChanges(): void {
     this.searchControl.valueChanges
       .pipe(debounceTime(500), takeUntilDestroyed(this.destroyRef))
@@ -72,7 +88,6 @@ export class AppComponent implements OnInit {
 
         this.router.navigate([], {
           queryParams,
-          queryParamsHandling: 'merge',
         });
       });
   }
@@ -82,7 +97,9 @@ export class AppComponent implements OnInit {
       .select(selectIsSearchDisabled)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(value =>
-        value ? this.searchControl.disable() : this.searchControl.enable(),
+        value
+          ? this.searchControl.disable({ emitEvent: false })
+          : this.searchControl.enable({ emitEvent: false }),
       );
   }
 }

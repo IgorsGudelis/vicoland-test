@@ -9,5 +9,8 @@ export const UsersActions = createActionGroup({
     'Create User Success': props<{ payload: User }>(),
     'Get Users': emptyProps(),
     'Get Users Success': props<{ payload: User[] }>(),
+    'Save User': emptyProps(),
+    'Save User Failure': emptyProps(),
+    'Save User Success': emptyProps(),
   },
 });
