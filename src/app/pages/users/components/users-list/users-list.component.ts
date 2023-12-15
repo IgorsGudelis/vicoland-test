@@ -13,7 +13,7 @@ import { selectUsers, UsersActions } from '../../store';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsersListComponent implements OnInit {
-  users$ = this.store.select(selectUsers);
+  readonly users$ = this.store.select(selectUsers);
 
   constructor(private readonly store: Store) {}
 

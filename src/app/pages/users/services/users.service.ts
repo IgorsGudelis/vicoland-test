@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { faker } from '@faker-js/faker';
 import { Observable, of } from 'rxjs';
+import { v4 as uuidv4 } from 'uuid';
 
 import { User } from '../models';
 
@@ -25,7 +26,7 @@ export class UsersService {
       country: location.country(),
       email: internet.email({ firstName, lastName }),
       firstName,
-      id: new Date().getMilliseconds(),
+      id: uuidv4(),
       lastName,
       street: location.street(),
       zipcode: location.zipCode(),

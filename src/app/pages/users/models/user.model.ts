@@ -4,7 +4,7 @@ export interface User {
   country: string;
   email: string;
   firstName: string;
-  id: number;
+  id: string;
   lastName: string;
   street: string;
   zipcode: string;

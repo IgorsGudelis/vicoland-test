@@ -3,7 +3,7 @@
     <div class="app__header-content app-container">
       <mat-form-field class="app__search" [appearance]="'outline'">
         <mat-label>Search</mat-label>
-        <input matInput />
+        <input matInput [formControl]="searchControl" />
       </mat-form-field>
 
       <div class="app__actions">
