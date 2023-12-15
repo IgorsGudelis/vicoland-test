@@ -3,16 +3,24 @@
     <div class="app__header-content app-container">
       <mat-form-field class="app__search" [appearance]="'outline'">
         <mat-label>Search</mat-label>
-        <input matInput [formControl]="searchControl" />
+        <input [formControl]="searchControl" matInput />
       </mat-form-field>
 
       <div class="app__actions">
-        <button mat-stroked-button [color]="'primary'">Create</button>
+        <button
+          mat-stroked-button
+          [color]="'primary'"
+          [disabled]="isCreateDisabled$ | async"
+          (click)="onCreateClick()"
+        >
+          Create
+        </button>
 
         <button
           mat-stroked-button
           [color]="'primary'"
-          (click)="onCreateClick()"
+          [disabled]="isSaveDisabled$ | async"
+          (click)="onSaveClick()"
         >
           Save
         </button>

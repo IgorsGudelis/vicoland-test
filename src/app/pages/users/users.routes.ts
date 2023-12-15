@@ -19,11 +19,20 @@ export const USERS_ROUTES: Route[] = [
         pathMatch: 'full',
         loadComponent: () =>
           import('./components').then(module => module.UsersListComponent),
+        title: 'Users',
+        data: {
+          isSaveDisabled: true,
+        },
       },
       {
         path: ':userId',
         loadComponent: () =>
           import('./components').then(module => module.UserDetailsComponent),
+        title: 'Users',
+        data: {
+          isCreateDisabled: true,
+          isSearchDisabled: true,
+        },
       },
     ],
   },

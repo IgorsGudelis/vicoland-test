@@ -13,7 +13,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { CommonActions } from '@shared/store/common';
+import {
+  CommonActions,
+  selectIsCreateDisabled,
+  selectIsSaveDisabled,
+  selectIsSearchDisabled,
+} from '@shared/store/common';
 import { debounceTime } from 'rxjs';
 
 @Component({
@@ -33,6 +38,9 @@ import { debounceTime } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
+  readonly isCreateDisabled$ = this.store.select(selectIsCreateDisabled);
+  readonly isSaveDisabled$ = this.store.select(selectIsSaveDisabled);
+  readonly isSearchDisabled$ = this.store.select(selectIsSearchDisabled);
   readonly searchControl = new FormControl<string | null>(null);
 
   constructor(
@@ -43,10 +51,15 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscribeOnSearchValueChanges();
+    this.subscribeOnSearchStatusChanges();
   }
 
   onCreateClick(): void {
     this.store.dispatch(CommonActions.create());
+  }
+
+  onSaveClick(): void {
+    this.store.dispatch(CommonActions.save());
   }
 
   subscribeOnSearchValueChanges(): void {
@@ -62,5 +75,14 @@ export class AppComponent implements OnInit {
           queryParamsHandling: 'merge',
         });
       });
+  }
+
+  subscribeOnSearchStatusChanges(): void {
+    this.store
+      .select(selectIsSearchDisabled)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(value =>
+        value ? this.searchControl.disable() : this.searchControl.enable(),
+      );
   }
 }
