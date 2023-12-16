@@ -1,7 +1,7 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { APP_SHARED } from '@shared/app-shared.const';
 
 import { User } from '../../models';
 import { selectUsers, UsersActions } from '../../store';
@@ -9,7 +9,7 @@ import { selectUsers, UsersActions } from '../../store';
 @Component({
   selector: 'app-users-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [APP_SHARED],
   templateUrl: './users-list.component.html',
   styleUrl: './users-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
