@@ -1,9 +1,40 @@
 <div class="users">
   @for (item of users$ | async; track item.id) {
-    <div (click)="onUserClick(item)">
-      <p>{{ item.firstName }}</p>
-      <p>{{ item.lastName }}</p>
-    </div>
+    <mat-card
+      class="users__card"
+      [matTooltip]="'Click to edit'"
+      (click)="onUserClick(item)"
+    >
+      <mat-card-header>
+        <mat-card-title>
+          <p class="users__card-title">
+            <span class="users__card-text users__card-text--end text-truncated">
+              {{ item.firstName }}
+            </span>
+
+            <img
+              [ngSrc]="item.avatarUrl"
+              matCardAvatar
+              width="40"
+              height="40"
+              [matTooltip]="item.firstName + ' ' + item.lastName"
+            />
+
+            <span class="text-truncated">
+              {{ item.lastName }}
+            </span>
+          </p>
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p>{{ item.email }}</p>
+        <p>{{ item.country }}</p>
+        <p>{{ item.city }}</p>
+        <p>{{ item.street }}</p>
+        <p>{{ item.zipcode }}</p>
+      </mat-card-content>
+    </mat-card>
   } @empty {
     <p>Nothing found...</p>
   }

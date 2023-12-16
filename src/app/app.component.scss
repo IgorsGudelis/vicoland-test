@@ -1,6 +1,8 @@
 @use 'sass:map';
 @use '@angular/material' as mat;
 
+$header-heigth: 64px;
+
 :host {
   flex-grow: 1;
   display: flex;
@@ -13,6 +15,9 @@
   flex-direction: column;
 
   &__header {
+    position: fixed;
+    z-index: 10;
+
     &-content {
       display: flex;
       justify-content: space-between;
@@ -29,6 +34,7 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    margin-top: $header-heigth;
     padding: 24px;
   }
 

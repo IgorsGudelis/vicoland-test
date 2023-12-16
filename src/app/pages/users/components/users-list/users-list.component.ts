@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -9,10 +16,11 @@ import { selectUsers, UsersActions } from '../../store';
 @Component({
   selector: 'app-users-list',
   standalone: true,
-  imports: [...APP_SHARED],
+  imports: [MatCardModule, MatTooltipModule, ...APP_SHARED],
   templateUrl: './users-list.component.html',
   styleUrl: './users-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
 export class UsersListComponent implements OnInit {
   readonly users$ = this.store.select(selectUsers);

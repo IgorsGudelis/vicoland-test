@@ -1,3 +1,3 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 
-export const SHARED_DIRECTIVES = [AsyncPipe];
+export const SHARED_DIRECTIVES = [AsyncPipe, NgOptimizedImage];

@@ -1,5 +1,43 @@
+@use '@angular/material' as mat;
+
 .users {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  grid-template-columns: 1fr;
+  gap: 24px;
+
+  @media (width >= 600px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (width >= 960px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  &__card {
+    &:hover {
+      @include mat.elevation-transition();
+      @include mat.elevation(4);
+
+      cursor: pointer;
+    }
+
+    .mat-mdc-card-header-text {
+      width: 100%;
+    }
+
+    &-title {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      justify-content: center;
+      align-items: baseline;
+      gap: 8px;
+      width: 100%;
+    }
+
+    &-text {
+      &--end {
+        text-align: end;
+      }
+    }
+  }
 }

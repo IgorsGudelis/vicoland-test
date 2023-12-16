@@ -61,8 +61,8 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscribeOnCurrentUser();
     this.subscribeOnFormValueChanges();
+    this.subscribeOnCurrentUser();
   }
 
   ngOnDestroy(): void {
@@ -77,10 +77,8 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
         const { avatarUrl, id, ...formValue } = value!;
 
         this.user = value!;
-        this.form.patchValue(formValue, { emitEvent: false });
-        this.store.dispatch(
-          UsersActions.setUpdatedUserInfo({ payload: this.user }),
-        );
+        this.form.patchValue(formValue);
+        this.form.markAllAsTouched();
       });
   }
 
