@@ -2,7 +2,7 @@ import { USERS_INITIAL_STATE } from '../consts';
 import { User } from '../models';
 
 export interface UsersState {
-  currentUser: User | null;
+  updatedUserInfo: User | null;
   users: User[];
 }
 

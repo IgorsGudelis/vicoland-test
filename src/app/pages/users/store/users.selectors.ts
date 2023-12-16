@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { selectQueryParams } from '@shared/store/router';
+import { selectParams, selectQueryParams } from '@shared/store/router';
 
 import { usersFeatureKey, UsersState } from './users.state';
 
@@ -8,7 +8,13 @@ export const selectUsersFeature =
 
 export const selectCurrentUser = createSelector(
   selectUsersFeature,
-  (state: UsersState) => state.currentUser,
+  selectParams,
+  ({ users }, { userId }) => users.find(item => item.id === userId),
+);
+
+export const selectUpdatedUserInfo = createSelector(
+  selectUsersFeature,
+  state => state.updatedUserInfo,
 );
 
 export const selectUsers = createSelector(

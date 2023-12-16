@@ -1,5 +1,5 @@
 export interface User {
-  avatarUrl?: string;
+  avatarUrl: string;
   city: string;
   country: string;
   email: string;
@@ -7,5 +7,5 @@ export interface User {
   id: string;
   lastName: string;
   street: string;
-  zipcode: string;
+  zipcode: number | null;
 }

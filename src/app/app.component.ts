@@ -70,7 +70,7 @@ export class AppComponent implements OnInit {
       .pipe(
         skip(1),
         take(1),
-        map(({ search }) => search?.trim()),
+        map(({ search }) => search),
         filter(value => !!value),
       )
       .subscribe(value =>

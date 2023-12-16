@@ -6,6 +6,7 @@ $theme: app.$app-theme;
 @include mat.core();
 @include mat.core-theme($theme);
 @include mat.button-theme($theme);
+@include mat.card-theme($theme);
 @include mat.form-field-theme($theme);
 @include mat.input-theme($theme);
 @include mat.toolbar-theme($theme);

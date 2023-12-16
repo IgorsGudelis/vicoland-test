@@ -7,7 +7,7 @@ import { filter, map, switchMap, tap } from 'rxjs';
 
 import { UsersService } from '../services';
 import { UsersActions } from './users.actions';
-import { selectUsers } from './users.selectors';
+import { selectUpdatedUserInfo, selectUsers } from './users.selectors';
 
 @Injectable()
 export class UsersEffects {
@@ -60,7 +60,12 @@ export class UsersEffects {
   saveUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UsersActions.saveUser),
-      map(() => UsersActions.saveUserSuccess()),
+      concatLatestFrom(() => this.store.select(selectUpdatedUserInfo)),
+      map(([_, updatedUserInfo]) =>
+        updatedUserInfo
+          ? UsersActions.saveUserSuccess()
+          : UsersActions.saveUserFailure(),
+      ),
     ),
   );
 
@@ -73,6 +78,15 @@ export class UsersEffects {
             queryParamsHandling: 'preserve',
           }),
         ),
+      ),
+    { dispatch: false },
+  );
+
+  saveUserFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(UsersActions.saveUserFailure),
+        tap(() => window.alert('Oops, invalid form...')),
       ),
     { dispatch: false },
   );

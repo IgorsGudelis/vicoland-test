@@ -13,4 +13,14 @@ export const usersReducer = createReducer(
     ...state,
     users: payload,
   })),
+  on(UsersActions.saveUserSuccess, state => ({
+    ...state,
+    users: state.users.map(item =>
+      item.id === state.updatedUserInfo!.id ? state.updatedUserInfo! : item,
+    ),
+  })),
+  on(UsersActions.setUpdatedUserInfo, (state, { payload }) => ({
+    ...state,
+    updatedUserInfo: payload,
+  })),
 );

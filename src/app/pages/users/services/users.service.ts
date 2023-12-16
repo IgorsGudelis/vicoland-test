@@ -29,7 +29,7 @@ export class UsersService {
       id: uuidv4(),
       lastName,
       street: location.street(),
-      zipcode: location.zipCode(),
+      zipcode: +location.zipCode('#####'),
     };
   }
 }
