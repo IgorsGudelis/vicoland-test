@@ -90,7 +90,7 @@ export class UsersEffects {
       ),
       map(({ payload }) =>
         CommonActions.showMessage({
-          payload: `User ${payload.firstName} ${payload.lastName} was updated.`,
+          payload: `User ${payload.firstName} ${payload.lastName} was saved.`,
         }),
       ),
     ),

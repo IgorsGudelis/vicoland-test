@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   DestroyRef,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -37,7 +38,7 @@ import { selectCurrentUser, UsersActions } from '../../store';
   styleUrl: './user-details.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserDetailsComponent implements OnInit {
+export class UserDetailsComponent implements OnInit, OnDestroy {
   readonly user$ = this.store.select(selectCurrentUser);
   form = this.fb.nonNullable.group({
     city: ['', [Validators.required, ADDRESS_VALIDATOR]],
@@ -62,6 +63,10 @@ export class UserDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.subscribeOnCurrentUser();
     this.subscribeOnFormValueChanges();
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(UsersActions.resetUpdatedUserInfo());
   }
 
   private subscribeOnCurrentUser(): void {
