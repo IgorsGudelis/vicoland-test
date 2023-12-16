@@ -9,5 +9,6 @@ $theme: app.$app-theme;
 @include mat.card-theme($theme);
 @include mat.form-field-theme($theme);
 @include mat.input-theme($theme);
+@include mat.snack-bar-theme($theme);
 @include mat.toolbar-theme($theme);
 @include mat.form-field-density(-4);

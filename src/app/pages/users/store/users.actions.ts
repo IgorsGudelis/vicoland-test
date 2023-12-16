@@ -11,7 +11,7 @@ export const UsersActions = createActionGroup({
     'Get Users Success': props<{ payload: User[] }>(),
     'Save User': emptyProps(),
     'Save User Failure': emptyProps(),
-    'Save User Success': emptyProps(),
+    'Save User Success': props<{ payload: User }>(),
     'Set Updated User Info': props<{ payload: User | null }>(),
   },
 });

@@ -33,6 +33,17 @@ export class UsersEffects {
     ),
   );
 
+  createUserSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UsersActions.createUserSuccess),
+      map(({ payload }) =>
+        CommonActions.showMessage({
+          payload: `User ${payload.firstName} ${payload.lastName} was created.`,
+        }),
+      ),
+    ),
+  );
+
   getUsers$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UsersActions.getUsers),
@@ -63,32 +74,37 @@ export class UsersEffects {
       concatLatestFrom(() => this.store.select(selectUpdatedUserInfo)),
       map(([_, updatedUserInfo]) =>
         updatedUserInfo
-          ? UsersActions.saveUserSuccess()
+          ? UsersActions.saveUserSuccess({ payload: updatedUserInfo })
           : UsersActions.saveUserFailure(),
       ),
     ),
   );
 
-  saveUserSuccess$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(UsersActions.saveUserSuccess),
-        tap(() =>
-          this.router.navigate(['dashboard', 'users'], {
-            queryParamsHandling: 'preserve',
-          }),
-        ),
+  saveUserSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UsersActions.saveUserSuccess),
+      tap(() =>
+        this.router.navigate(['dashboard', 'users'], {
+          queryParamsHandling: 'preserve',
+        }),
       ),
-    { dispatch: false },
+      map(({ payload }) =>
+        CommonActions.showMessage({
+          payload: `User ${payload.firstName} ${payload.lastName} was updated.`,
+        }),
+      ),
+    ),
   );
 
-  saveUserFailure$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(UsersActions.saveUserFailure),
-        tap(() => window.alert('Oops, invalid form...')),
+  saveUserFailure$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UsersActions.saveUserFailure),
+      map(() =>
+        CommonActions.showMessage({
+          payload: 'Oops, invalid form...',
+        }),
       ),
-    { dispatch: false },
+    ),
   );
 
   constructor(

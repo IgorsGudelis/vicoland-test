@@ -8,6 +8,7 @@ import { provideEffects } from '@ngrx/effects';
 import { provideRouterStore, routerReducer } from '@ngrx/router-store';
 import { provideStore } from '@ngrx/store';
 import { APP_FORM_FILED_DEFAULT_OPTIONS } from '@shared/consts';
+import { CommonEffects } from '@shared/store/common';
 import { routerFeatureKey } from '@shared/store/router';
 
 import { routes } from './app.routes';
@@ -19,7 +20,7 @@ export const appConfig: ApplicationConfig = {
     provideStore({
       [routerFeatureKey]: routerReducer,
     }),
-    provideEffects(),
+    provideEffects(CommonEffects),
     provideRouterStore({
       serializer: CustomRouterStateSerializer,
     }),

@@ -1,10 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -26,10 +24,8 @@ import { APP_SHARED } from './shared';
     CommonModule,
     RouterOutlet,
     MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
+    MatSnackBarModule,
     MatToolbarModule,
-    ReactiveFormsModule,
     ...APP_SHARED,
   ],
   templateUrl: './app.component.html',
@@ -63,7 +59,7 @@ export class AppComponent {
     this.store.dispatch(CommonActions.save());
   }
 
-  onSearchValueChange(search: string | null): void {
+  onSearchValueChanges(search: string | null): void {
     this.router.navigate([], {
       queryParams: {
         search,
