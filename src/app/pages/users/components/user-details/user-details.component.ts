@@ -11,8 +11,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Store } from '@ngrx/store';
+import {
+  ADDRESS_VALIDATOR,
+  LETTERS_VALIDATOR,
+  NUMBERS_VALIDATOR,
+} from '@shared/consts';
 import { debounceTime, take } from 'rxjs';
 
+import { APP_SHARED } from '../../../../shared';
 import { User } from '../../models';
 import { selectCurrentUser, UsersActions } from '../../store';
 
@@ -25,6 +31,7 @@ import { selectCurrentUser, UsersActions } from '../../store';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
+    ...APP_SHARED,
   ],
   templateUrl: './user-details.component.html',
   styleUrl: './user-details.component.scss',
@@ -33,15 +40,15 @@ import { selectCurrentUser, UsersActions } from '../../store';
 export class UserDetailsComponent implements OnInit {
   readonly user$ = this.store.select(selectCurrentUser);
   form = this.fb.nonNullable.group({
-    city: ['', [Validators.required, Validators.pattern("[a-zA-Z -']+")]],
-    country: ['', [Validators.required, Validators.pattern("[a-zA-Z -']+")]],
+    city: ['', [Validators.required, ADDRESS_VALIDATOR]],
+    country: ['', [Validators.required, ADDRESS_VALIDATOR]],
     email: ['', [Validators.required, Validators.email]],
-    firstName: ['', [Validators.required, Validators.pattern("^[a-zA-Z']+")]],
-    lastName: ['', [Validators.required, Validators.pattern("[a-zA-Z']+")]],
-    street: ['', [Validators.required, Validators.pattern("^[a-zA-Z -']+")]],
+    firstName: ['', [Validators.required, LETTERS_VALIDATOR]],
+    lastName: ['', [Validators.required, LETTERS_VALIDATOR]],
+    street: ['', [Validators.required, ADDRESS_VALIDATOR]],
     zipcode: this.fb.control<number | null>(null, {
       nonNullable: false,
-      validators: Validators.pattern('[0-9]*'),
+      validators: NUMBERS_VALIDATOR,
     }),
   });
   private user!: User;
