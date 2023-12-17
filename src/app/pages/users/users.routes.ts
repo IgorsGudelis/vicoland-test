@@ -1,9 +1,16 @@
-import { Route } from '@angular/router';
+import { inject } from '@angular/core';
+import { Route, UrlSegment } from '@angular/router';
 import { provideEffects } from '@ngrx/effects';
-import { provideState } from '@ngrx/store';
+import { provideState, Store } from '@ngrx/store';
+import { map } from 'rxjs';
 
 import { UsersService } from './services';
-import { UsersEffects, usersFeatureKey, usersReducer } from './store';
+import {
+  selectUsers,
+  UsersEffects,
+  usersFeatureKey,
+  usersReducer,
+} from './store';
 
 export const USERS_ROUTES: Route[] = [
   {
@@ -18,7 +25,9 @@ export const USERS_ROUTES: Route[] = [
         path: '',
         pathMatch: 'full',
         loadComponent: () =>
-          import('./components').then(module => module.UsersListComponent),
+          import('./components/users-list/users-list.component').then(
+            module => module.UsersListComponent,
+          ),
         title: 'Dashboard | Users List',
         data: {
           isSaveDisabled: true,
@@ -27,12 +36,20 @@ export const USERS_ROUTES: Route[] = [
       {
         path: ':userId',
         loadComponent: () =>
-          import('./components').then(module => module.UserDetailsComponent),
+          import('./components/user-details/user-details.component').then(
+            module => module.UserDetailsComponent,
+          ),
         title: 'Dashboard | User',
         data: {
           isCreateDisabled: true,
           isSearchDisabled: true,
         },
+        canMatch: [
+          (route: Route, [{ path }]: UrlSegment[]) =>
+            inject(Store)
+              .select(selectUsers)
+              .pipe(map(users => users.some(user => user.id === path))),
+        ],
       },
     ],
   },

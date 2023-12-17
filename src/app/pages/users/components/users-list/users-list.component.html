@@ -1,40 +1,46 @@
 <div class="users">
   @for (item of users$ | async; track item.id) {
-    <mat-card
-      class="users__card"
-      [matTooltip]="'Click to edit'"
-      (click)="onUserClick(item)"
+    <a
+      href="javascript:void(0);"
+      [routerLink]="[item.id]"
+      [queryParamsHandling]="'merge'"
     >
-      <mat-card-header>
-        <mat-card-title>
-          <p class="users__card-title">
-            <span class="users__card-text users__card-text--end text-truncated">
-              {{ item.firstName }}
-            </span>
+      <mat-card class="users__card" [matTooltip]="'Click to edit'">
+        <mat-card-header class="users__card-header">
+          <mat-card-title>
+            <p class="users__card-title">
+              <span
+                class="users__card-text users__card-text--end text-truncated"
+              >
+                {{ item.firstName }}
+              </span>
 
-            <img
-              [ngSrc]="item.avatarUrl"
-              matCardAvatar
-              width="40"
-              height="40"
-              [matTooltip]="item.firstName + ' ' + item.lastName"
-            />
+              <img
+                *ngIf="item.firstName + ' ' + item.lastName as fullname"
+                [ngSrc]="item.avatarUrl"
+                [alt]="'The avatar of ' + fullname"
+                matCardAvatar
+                [matTooltip]="fullname"
+                width="40"
+                height="40"
+              />
 
-            <span class="text-truncated">
-              {{ item.lastName }}
-            </span>
-          </p>
-        </mat-card-title>
-      </mat-card-header>
+              <span class="text-truncated">
+                {{ item.lastName }}
+              </span>
+            </p>
+          </mat-card-title>
+        </mat-card-header>
 
-      <mat-card-content>
-        <p>{{ item.email }}</p>
-        <p>{{ item.country }}</p>
-        <p>{{ item.city }}</p>
-        <p>{{ item.street }}</p>
-        <p>{{ item.zipcode }}</p>
-      </mat-card-content>
-    </mat-card>
+        <mat-card-content>
+          <p>{{ item.email }}</p>
+          <p>{{ item.country }}</p>
+          <p>{{ item.city }}</p>
+          <p>{{ item.street }}</p>
+          <p>{{ item.zipcode }}</p>
+        </mat-card-content>
+      </mat-card>
+    </a>
   } @empty {
     <p>Nothing found...</p>
   }

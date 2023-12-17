@@ -17,12 +17,10 @@
     &:hover {
       @include mat.elevation-transition();
       @include mat.elevation(4);
-
-      cursor: pointer;
     }
 
-    .mat-mdc-card-header-text {
-      width: 100%;
+    &-header {
+      display: block;
     }
 
     &-title {
