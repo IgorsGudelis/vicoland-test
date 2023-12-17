@@ -14,12 +14,13 @@ import { MatInputModule } from '@angular/material/input';
 import { Store } from '@ngrx/store';
 import {
   ADDRESS_VALIDATOR,
-  LETTERS_VALIDATOR,
+  NAME_VALIDATOR,
   NUMBERS_VALIDATOR,
 } from '@shared/consts';
 import { debounceTime, take } from 'rxjs';
 
 import { APP_SHARED } from '../../../../shared';
+import { USER_CONTROLS_MAP } from '../../consts';
 import { User } from '../../models';
 import { selectCurrentUser, UsersActions } from '../../store';
 
@@ -39,13 +40,14 @@ import { selectCurrentUser, UsersActions } from '../../store';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserDetailsComponent implements OnInit, OnDestroy {
+  readonly userControlsMap = USER_CONTROLS_MAP;
   readonly user$ = this.store.select(selectCurrentUser);
   form = this.fb.nonNullable.group({
     city: ['', [Validators.required, ADDRESS_VALIDATOR]],
     country: ['', [Validators.required, ADDRESS_VALIDATOR]],
     email: ['', [Validators.required, Validators.email]],
-    firstName: ['', [Validators.required, LETTERS_VALIDATOR]],
-    lastName: ['', [Validators.required, LETTERS_VALIDATOR]],
+    firstName: ['', [Validators.required, NAME_VALIDATOR]],
+    lastName: ['', [Validators.required, NAME_VALIDATOR]],
     street: ['', [Validators.required, ADDRESS_VALIDATOR]],
     zipcode: this.fb.control<number | null>(null, {
       nonNullable: false,
